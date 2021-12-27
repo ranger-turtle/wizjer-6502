@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<title>Tryb adresowania strony zerowej Y</title>
+	<meta charset="UTF-8"/>
+	<meta name="description" content="Natychmiastowy tryb adresowania Y"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="../../favicon.png" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit%7CSource+Code+Pro&amp;subset=latin-ext"/>
+	<link rel="stylesheet" href="../../style.min.css" />
+	<link rel="stylesheet" href="../basicstyle.min.css" />
+	<link rel="stylesheet" href="modestyle.min.css" />
+</head>
+<body>
+	<header>
+		<a class="logo" href="../../index.html">
+			<img width="100" height="100" src="../../favicon.png" alt="logo"/>
+			<h1>Wizjer 6502</h1>
+		</a>
+	</header>
+	<main>
+		<h1 id="mode-name">Tryb strony zerowej Y</h1>
+		<section>
+			<h3 class="desc-heading">Opis</h3>
+			<div id="desc">
+				<div class="v6502-image">
+					<img src="../../img/zero_page_Y.png" alt="zero page Y"/>
+				</div>
+				<p><a href="../glossary/glossary.html#addressing-mode" class="site-link">Tryb adresowania</a>, przy którym <a href="../glossary/glossary.html#effective-address" class="site-link">adres efektywny</a> jest sumą argumentu i wartości w <a href="../glossary/glossary.html#y-register" class="site-link">rejestrze Y</a>.</p>
+				<p>Na przykład, wykonanie instrukcji <a href="../glossary/glossary.html#assembly" class="site-link">asemblerowej</a> <a href="../ops/lda.html" class="site-link">LDA</a> $1E,Y, gdzie rejestr Y=$02 spowoduje, że do <a href="../glossary/glossary.html#accumulator" class="site-link">akumulatora</a> zostanie wczytana wartość pobrana z komórki o adresie $0020. W tej komórce znajduje się liczba $32 i taką wartość przyjmie akumulator po wykonaniu tego rozkazu.</p>
+				<p>Chociaż <a href="../glossary/glossary.html#processor" class="site-link">procesor 6502</a> obsługuje szesnastobitowe adresy, w tym adresowaniu jest potrzebny tylko najmłodszy bajt adresu efektywnego, ponieważ starszy jest zawsze równy zero. <a href="../glossary/glossary.html#page" class="site-link">Strona</a> zerowa, tak jak każda inna strona, ma 256 bajtów. Argument jest numerem bajtu na stronie, z którego ma być pobrana wartość potrzebna do wykonania operacji. Rejestr Y jest w reprezentacji NKB (jego wartość jest zawsze nieujemna).</p>
+				<p>Tryb ten różni się od <a href="zeropagex.html" class="site-link">adresowania strony zerowej X</a> tylko używanym rejestrem i liczbą obsługiwanych instrukcji. Tylko dwa rozkazy obsługują ten tryb adresowania: LDX i STX.</p>
+				<p>Rozkazy te zawsze zajmują po dwa bajty ze względu na obecność ośmiobitowego argumentu i liczbą obsługiwanych instrukcji.</p>
+				<p>Uwaga! Jeśli suma argumentu i wartości w rejestrze Y będzie większa, niż $FF, to najstarszy bajt adresu zostanie wyzerowany i to spowoduje, że zostanie wskazany bajt na stronie zerowej o numerze równym najmłodszemu bajtowi sumy. Adresowanie strony zerowej Y nie obsługuje więc przekroczenia strony.</p>
+			</div>
+		</section>
+		<section>
+			<h3 id="syntax-title">Składnia instrukcji</h3>
+			<div class="mode-syntax">
+				<span class="mnemonic">ROZ</span>
+				<span class="hexnumber">$??</span><span class="constant">, Y</span>
+			</div>
+			<div class="syntax-desc">
+				gdzie:<br/>
+				ROZ - mnemonik<br/>
+				$?? - ośmiobitowa liczba szesnastkowa, będąca najmłodszym bajtem adresu efektywnego
+			</div>
+		</section>
+		<section>
+			<h3 id="examples-title">Przykłady zastosowania</h3>
+			<pre id="code"><!-- może spróbuję poprawić na code-->LDX $1E, Y
+STX $2E, Y</pre>
+		</section>
+	</main>
+	<footer>
+		<div id="help-footer">
+			<a href="../instructions.html">Powrót &lt;&lt;</a>
+		</div>
+		<div class="copyright-note">2018 Paweł Oziomek &copy; Wszelkie prawa zastrzeżone</div>
+	</footer>
+</body>
+</html>

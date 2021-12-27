@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<title>Wizjer 6502 - Wprowadzenie</title>
+	<meta charset="UTF-8"/>
+	<meta name="description" content="Wprowadzenie do Wizjera 6502."/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="../../favicon.png" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit%7CSource+Code+Pro&amp;subset=latin-ext"/>
+	<link rel="stylesheet" href="../../style.min.css" />
+	<link rel="stylesheet" href="../basicstyle.min.css" />
+	<link rel="stylesheet" href="style.min.css" />
+</head>
+<body>
+	<header>
+		<a href="../../index.html" class="logo">
+			<img width="100" height="100" src="../../favicon.png" alt="Wizjer 6502"/>
+			<h1>Wizjer 6502</h1>
+		</a>
+		<h1 id="header">Wprowadzenie</h1>
+	</header>
+	<main>
+		<article>
+			<div class="section">
+				<div class="v6502-image left">
+					<img src="img/img1.png" alt=""/>
+				</div>
+				<h2>Co to jest Wizjer 6502?</h2>
+				<p>Wizjer 6502 to jest symulacja istniejącego <a href="../glossary/glossary.html#processor" class="site-link">procesora MOS 6502</a>. Jest przeznaczona dla każdego, który zna podstawy programowania w językach C/C++, czy Java, ale chcą poznać najniższy poziom abstrakcji, gdzie się ma pełną kontrolę nad systemem komputerowym oraz poznać podstawowe pojęcia dotyczące architektur systemów komputerowych. Powinni jednak znać podstawowe pojęcia informatyczne takie, jak bit, bajt, pamięć RAM, procesor, systemy binarny i szesnastkowy, naturalny kod binarny (NKB), system uzupełnienia do dwóch (U2) czy podstawy programowania w języku wyższego poziomu.</p>
+				<p><a href="../glossary/glossary.html#assembly" class="site-link">Język asemblera</a> 6502, który jest tłumaczony na <a href="../glossary/glossary.html#machine-code" class="site-link">kod maszynowy</a> "zrozumiały" dla procesora jest o wiele prostszy od popularniejszego języka asemblera x86, który posiada ponad 1000 instrukcji! Asembler dla procesora 6502 (nazywanego w skrócie Asemblerem 6502) ma ich jedynie 56. W tej symulacji i nieraz, w rzeczywistym systemie 6502 masz całkowitą kontrolę nad systemem komputerowym i możesz robić z pamięcią RAM i wieloma <a href="../glossary/glossary.html#register" class="site-link">rejestrami</a> procesora to, co ci się żywnie podoba. Nie ma tu żadnego systemu operacyjnego czy maszyny wirtualnej, która wspomaga zarządzanie pamięcią lub nawet całkowicie uwalnia od tego użytkownika. Wszystkie dane, w tym kod są widoczne jako liczby w pamięci RAM i rejestrach, przez co możesz (musisz) sam zdecydować, które liczby będą adresami, <a href="../glossary/glossary.html#opcode" class="site-link">opkodami</a>, kodami koloru, kodami ASCII czy po prostu zwykłymi liczbami do obliczeń. W zależności od twoich intencji może się stać tak, że dokładnie ta sama dana zostanie potraktowana, jako zwykła liczba, jak i kod ASCII np. możemy dodać do rejestru liczbę z pamięci, a sumę potraktować ją jako kod ASCII znaku, który chcemy wyświetlić na ekranie. Należy jedynie zapisać liczbę w komórce pamięci, z której urządzenie wyświetlające regularnie odczytuje dane, na podstawie których wyświetla odpowiednią zawartość na ekranie. W programowaniu wysokopoziomowym, w tym też w języku C kompilator porządkuje instrukcje tak, że jeśli stos sprzętowy został użyty w trakcie wykonania podprogramu, to kompilator zawsze dorzuci instrukcję powrotu, a w chwili powrotu <a href="../glossary/glossary.html#stack-pointer" class="site-link">wskaźnik stosu</a> zawsze wskazuje na bajt zawierający adres powrotu. Pisząc w wielu asemblerach, w tym w 6502, programista sam może zdecydować, czy ma nastąpić powrót do miejsca wywołania lub wykorzystać adres powrotu jako inną daną, lecz o tej samej wartości "widzianej" przez system komputerowy. Możesz nawet nadpisać kod programu zupełnie innymi danymi.</p>
+
+				<p>W programie możesz zarówno ręcznie edytować pamięć, jak i pisać w asemblerze, po czym napisany kod przetłumaczyć na kod maszynowy i wrzucić w wybrane przez Ciebie miejsce w pamięci. Oprócz pamięci RAM możesz też zobaczyć najważniejsze komponenty procesora. Zarówno pamięć RAM, jak i komponenty procesora są podświetlane, gdy biorą udział, a wartości komórek pamięci dowolnego rodzaju są aktualizowane. W Wizjerze 6502 na każdy krok wykonywania programu przypada jeden cykl zegara.</p>
+
+				<div class="v6502-image left">
+					<img src="../glossary/img/program-counter.png" alt=""/>
+				</div>
+				<p>Wykonywanie programu przebiega w taki sposób, że są odczytywane każde komórki pamięci po kolei. Procesor "przesuwa" się po pamięci, niczym dysza nad matrycą. Informacja o tym, w którym miejscu "znajduje się procesor" znajduje się w <a href="../glossary/glossary.html#program-counter" class="site-link">liczniku programu</a>. Pobrana liczba z adresu wskazywanego przez licznik programu może być potraktowana jako informacja o tym, jaki rozkaz ma wykonać i jaki tryb adresowania ma zostać wybrany, pod warunkiem, że jest wykonywany pierwszy cykl pewnego rozkazu. W następnych cyklach dalsze liczby wskazywane przez licznik są traktowane jak argumenty, jeśli pobrano wcześniej opkod rozkazu przyjmującego argumenty. Na jeden krok wykonywania programu przypada jeden cykl zegara, a nie wykonanie całej instrukcji, jak ma to miejsce w pozostałych symulatorach asemblera.</p>
+
+				<div class="v6502-image right" style="margin-bottom: 12px;">
+					<img src="img/img3.png" alt=""/>
+				</div>
+				<p>Komórki pamięci od $0600 do $07FF są zarezerwowane dla konsoli. Wartości w parzystych komórkach pamięci decydują o tym, jakie znaki mają być wyświetlone na poszczególnych komórkach konsoli, natomiast nieparzyste komórki pamięci przechowuje kod koloru tła i tekstu. Liczba decydująca o kolorze ma rozmiar jednego bajtu. Starszy półbajt decyduje o kolorze tła, natomiast młodszy o kolorze tekstu.</p>
+
+				<div class="v6502-image left">
+					<img src="img/img4.png" alt=""/>
+				</div>
+				<p>Oznacza to, że masz cały system komputerowy do twojej dyspozycji i to od ciebie zależy przebieg każdej, nawet drobiazgowej operacji. Ta symulacja jest w sam raz dla tych, którzy chcą "bawić" się całym systemem komputerowym! ;)</p>
+
+				<div class="v6502-image right">
+					<img src="img/img5.png" alt=""/>
+				</div>
+				<h2>Interpretacja danych przez systemy komputerowe</h2>
+			<p>Należy wiedzieć, że programując w asemblerze 6502, dokładnie poznajemy współdziałanie kluczowych komponentów procesora i reprezentację danych w pamięci. Nieważne, czy dane zostaną przetworzone jako obraz, dźwięk, czy nawet liczby ujemne, komputer widzi je tylko jako ciągi zer i jedynek. Dowodem na to jest to, jak komputer widzi sumę dwóch liczb, nieważne, czy to w reprezentacji NKB czy U2, np. gdy dodamy liczby $03 i $FF, a obliczenia są dokonywane na jednym bajcie. Po przekształceniu tych liczb z postaci szesnastkowej na dziesiętny w systemie U2 dla jednego bajtu otrzymujemy odpowiednio liczby 3 i -1. Suma tych liczb wynosi 2. Z kolei, gdy potraktujemy jako NKB, to wtedy to będą liczby 3 i 255. Po dodaniu tych liczb otrzymujemy liczbę 257 ($102). Ta liczba nie mieści się w jednym bajcie, dlatego po odrzuceniu starszego bajtu liczba ta ma wartość $02. Wyniki obu działań komputer widzi jak liczbę 00000010. Oznacza to, że to człowiek ma decydować, jak użyć tych liczb, aby można było odczytać je jako dane, które człowiek chce wykorzystać i w programowaniu niskopoziomowym nie jest tak, że każda liczba (dana) musi mieć niezmienną rolę, jak w językach Java, czy C#, lub czasem w C. W Asemblerach, w tym 6502 tą samą liczbę człowiek może potraktować np. jako składnik dodawania arytmetycznego lub jako kod koloru piksela na ekranie, który decyduje o tym, w jakim kolorze monitor ma wyświetlić piksel. Wadami asemblera jest ryzyko popełnienia błędu ciężkiego do znalezienia gdy jest wiele linii kodu, napisania kodu zmieniającego siebie samego czy zapomnienia ustawienia specjalnej flagi, aby operacja przeszła poprawnie, co jest czynnością, którą należy wykonywać przy programowaniu niskopoziomowym mimo, że przy dodawaniu ręcznym nie jest to konieczne. Do każdej architektury procesora jest przyporządkowana jedna rodzina podobnych do siebie asemblerów co powoduje nieprzenośność kodu asemblerowego. Te powyższe wady spowodowały, że powstały języki programowania wyższego poziomu, które są przenośne, ich kod stosunkowo dobrze opisuje rozwiązanie problemu, a skomplikowane ciągi operacji w kodzie maszynowym, które mają być wykonywane zgodnie z naszą wolą są generowane przez kompilator, a w kodzie są przedstawione jako funkcje biblioteczne lub operacje wyrażane za pomocą operatorów (np. w języku C lub wyższego poziomu nigdy nie musimy uwzględniać operacji czyszczenia <a href="../glossary/glossary.html#flag-register" class="site-link">flagi przeniesienia</a> przed dodawaniem, bo taką operację dorzuci kompilator w razie potrzeby, ponadto taka operacja może mieć inny przebieg w innych procesorach lub w ogóle jej może nie być).</p>
+			</div>
+		</article>
+	</main>
+	<aside>
+		<div style="text-align:left;">
+			<img src="img/pearl.png" alt="perełka"/>
+		</div>
+		<h2>Jeśli chcesz wiedzieć więcej o procesorze 6502, zapoznaj się z poniższymi źródłami:</h2>
+		<div id="sources">
+			<ol>
+				<li><a href="https://pl.wikipedia.org/wiki/MOS_Technology_6502" class="underlined">https://pl.wikipedia.org/wiki/MOS_Technology_6502</a></li>
+				<li><a href="https://en.wikipedia.org/wiki/MOS_6502" class="underlined">https://en.wikipedia.org/wiki/MOS_6502</a></li>
+				<li><a href="http://skilldrick.github.io/easy6502/" class="underlined">http://skilldrick.github.io/easy6502/</a></li>
+				<li><a href="http://www.6502.org/" class="underlined">http://www.6502.org/</a></li>
+				<li><a href="http://www.zimmers.net/anonftp/pub/cbm/documents/chipdata/64doc" class="underlined">http://www.zimmers.net/anonftp/pub/cbm/documents/chipdata/64doc</a></li>
+				<li><a href="http://www.visual6502.org/JSSim/expert.html" class="underlined">http://www.visual6502.org/JSSim/expert.html</a></li>
+				<li>J. Ruszczyc, Asembler 6502, Warszawa 1987, <a href="http://atarionline.pl/biblioteka/materialy_ksiazkowe/Asembler%206502%20(v1).pdf" class="underlined">http://atarionline.pl/biblioteka/materialy_ksiazkowe/Asembler%206502%20(v1).pdf</a></li>
+				<li>Leventhal, Lance A., 6502 Assembly language programming, Berkeley : Osborne McGraw-Hill, cop. 1986. ISBN 007881216X.</li>
+			</ol>
+		</div>
+	</aside>
+	<footer>
+		<div id="help-footer">
+			<a href="../instructions.html">Powrót &lt;&lt;</a>
+		</div>
+		<div class="copyright-note">2018 Paweł Oziomek &copy; Wszelkie prawa zastrzeżone</div>
+	</footer>
+</body>
+</html>

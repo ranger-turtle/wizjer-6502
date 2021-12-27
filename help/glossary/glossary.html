@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<title>Wizjer 6502 - Słowniczek</title>
+	<meta charset="UTF-8"/>
+	<meta name="description" content="Słowniczek najważniejszych pojęć do zrozumienia działania procesora 6502."/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="../../favicon.png" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit%7CSource+Code+Pro&amp;subset=latin-ext"/>
+	<link rel="stylesheet" href="../../style.min.css" />
+	<link rel="stylesheet" href="../basicstyle.min.css" />
+	<link rel="stylesheet" href="style.min.css" />
+</head>
+<body>
+	<header>
+		<a href="../../index.html" class="logo">
+			<img width="100" height="100" src="../../favicon.png" alt="Wizjer 6502"/>
+			<h1>Wizjer 6502</h1>
+		</a>
+		<h1 id="header">Słowniczek</h1>
+	</header>
+	<main>
+		<div id="processor" class="section">
+			<div class="v6502-image">
+				<img src="img/processor.png" alt=""/>
+			</div>
+			<p><strong>Procesor MOS 6502</strong> - 8-bitowy mikroprocesor zaprojektowany przez zespół prowadzony przez Chucka Peddle'a w firmie MOS Technology. Został wykorzystany do produkcji wielu najpopularniejszych mikrokomputerów, jak Commodore 64, Atari 2600, Apple II, Nintendo Entertainment System (NES) czy jego klon, który gościł w polskich domach - Pegasus. Pochodne procesora 6502 są używane do dzisiaj w systemach wbudowanych i używają asemblerów opartych na asemblerze dla procesora 6502.</p>
+			<p>Zawiera 8-bitową szynę danych, 16-bitową szynę adresową, zegar taktujący o częstotliwości 1 MHz (odmiany A i B od 2 do 3 MHz). Może wykonać 56 rozkazów i obsługuje 13 trybów adresowania.</p>
+		</div>
+		<div id="assembly" class="section">
+			<div class="v6502-image">
+				<img src="img/assembly.png" alt=""/>
+			</div>
+			<p><strong>Język asemblera</strong> - Rodzaj języka programowania (nazywany potocznie assemblerem), który spośród języków względnie wystarczająco czytelnych dla człowieka jest na najniższym poziomie abstrakcji tzn. każda instrukcja (rozkaz) zazwyczaj odpowiada jednemu rozkazowi maszynowemu. Rolę zmiennych przejmują rejestry i komórki pamięci RAM. Każda instrukcja asemblerowa składa się z mnemonika, najczęściej trójliterowego oraz argumentów. Składnie asemblerów są do siebie podobne, ale różnią się m.in. symbolami używanymi do pisania argumentów. Komentarze zazwyczaj rozpoczynają się od średnika i kończą na znaku nowej linii. Takie komentarze występują w języku asemblera 6502. Każdy procesor może obsługiwać kilka dialektów danego języka asemblera.</p>
+	<p>Języki asemblera uwolniły ludzi od pisania w kodzie maszynowym, które jest nie tylko żmudne, ale i może dopuścić napisanie źle działającego kodu, a poszukiwanie błędów w kodzie maszynowym jest bardzo trudne. Ponieważ w wielu procesorach, w tym 6502 na każdy rozkaz przypada tyle opkodów, ile trybów adresowania, w asemblerze wszystkie instrukcje wykonujące tą samą czynność są opisane tym samym mnemonikiem, a tryb adresowania jest ustalany na podstawie składni argumentów. W języku assemblera 6502 każda operacja ma ilość opkodów odpowiadającą ilości obsługiwanych trybów adresowania. Asembler podczas tłumaczenia kodu układa bajty argumentów nieośmiobitowych zgodnie z formą reprezentacji danych rozpoznawanych przez procesor (little endian lub big endian).</p>
+	<p>Asembler nie posiada predefiniowanych funkcji wykonujących więcej, niż jeden rozkaz maszynowy, lecz istnieją pakiety zapewniające podobną funkcjonalność. To, co można bezpośrednio zrobić w języku asemblera, zależy to od mikroprocesora, dla którego zaprojektowano język, ale najczęściej można wykonywać jedynie bardzo proste operacje na liczbach, a wykonywanie instrukcji warunkowych, pętli, czy funkcji należy wykonać za pomocą instrukcji skoku, liczników i flag, a to są elementy występujące w wielu mikroprocesorach. Inną wadą języków asemblera jest ich nieprzenośność tzn. raz napisanego kodu nie można wykorzystać na innym modelu mikroprocesora, ponieważ instrukcje asemblerowe operują na konkretnych komponentach konkretnego procesora.</p>
+	<p>Odpowiednikiem kompilacji języków asemblera jest asemblacja.</p>
+	<p>Warto się nauczyć pisać chociaż krótkie programy w języku asemblera, a najlepiej tym zawartym w symulacji, gdyż dzięki temu można poznać podstawowe zasady działania systemów komputerowych i ich architektury. Taka wiedza przyda się programistom, którzy muszą dokładnie zaprogramować sprzęt o stosunkowo nowej architekturze, a programiści piszący w językach wysokiego poziomu będą mogli pisać bardziej wydajny kod. Jednak nie należy przesadzać z optymalizacją, gdyż część nieoptymalnych instrukcji poprawi za nas kompilator bądź interpreter.</p>
+		</div>
+		<div id="machine-code" class="section">
+			<div class="v6502-image">
+				<img src="img/machine-code.png" alt=""/>
+			</div>
+			<p><strong>Kod maszynowy</strong> - Kod maszynowy, lub inaczej język maszynowy, to język, którego procesor może bezpośrednio wykonać. Nie jest jednak używany przez ludzi, gdyż jest to tylko ciąg liczb, który nie mówi beśpośrednio o tym, co wykonuje ta operacja i o czym decyduje, jeśli badacz kodu maszynowego nie przeczytał dokumentacji opkodów.</p>
+	<p>Jednak lektura dokumentacji nie wystarczy do rozwiązania problemów związanych z kodem maszynowym - w kodzie składającym się wyłącznie z liczb bardzo trudno można znaleźć błędy, szczególnie, gdy kod składa się z conajmniej kilkudziesięciu liczb. Innym czynnikiem utrudniającą odczyt kodu maszynowego jest obecność argumentów przy opkodach w pamięci. Argumenty mogą mieć dokładnie taką samą wartość, co opkody, przez co można mieć problem z rozróżnieniem opkodów od argumentów, a ze względu na to, że większość mikroprocesorów obsługuje architekturę opartą na architekturze von Neumanna, to także rozróżnieniem ich od danych. Innym mankamentem czyniącym umiejętność pisania w kodzie maszynowym mało użytecznym jest to, że opkody wykonujące analogiczną czynność o analogicznym trybie adresowania w dwóch różnych modelach mikroprocesorów najczęściej są różne. Na przykład, kod maszynowy języka 6502 na procesorze x86 wykona się zupełnie inaczej, więc w celu osiągnięcia zamierzonego efektu należy przerobić cały kod, a to jest żmudna i kosztowna praca.</p>
+	<p>Kod maszynowy jest najczęściej wyświetlany na ekranie jako ciąg par cyfr szesnastkowych (w jęz. ang. Hexdump).</p>
+	<p>Symulacja "Wizjer 6502" pozwala na pisanie w kodzie maszynowym edytując obszar pamięci RAM, na którym ma się znaleźć program.</p>
+		</div>
+		<div id="opcode" class="section">
+			<div class="v6502-image">
+				<img src="img/opcode.png" alt=""/>
+			</div>
+			<p><strong>Opkod</strong> - Liczba, na podstawie której procesor wybiera rodzaj operacji i tryb adresowania. W asemblerze 6502 jest 151 udokumentowanych opkodów.</p>
+	<p>Procesor traktuje liczbę odczytaną z pamięci jako opkod pod warunkiem, że nie jest już w trakcie wykonywania innej operacji. Jeśli procesor przed wykonaniem konkretnej operacji pobierze nieznany opkod, to zacznie się zachowywać w sposób nieokreślony. W tej symulacji program wykonuje się w nieskończoność, nie wprowadzając żadnych zmian.</p>
+			<div style="clear: both"></div>
+		</div>
+		<div id="addressing-mode" class="section">
+			<div class="v6502-image">
+				<img src="img/addressing-mode.png" alt=""/>
+			</div>
+			<p><strong>Tryb adresowania</strong> - To jest sposób pobrania danych. Najczęściej wiąże się to z użyciem jakiegoś adresu komórki docelowej, ale są też takie, które pozwalają na szybką lokalizację danych np. <a href="../modes/immediate.html" class="site-link">natychmiastowy</a> w 6502.</p>
+	<p>Należy liczyć się z tym, że część trybów adresowania w 6502 nie znajduje się w niektórych procesorach, a inne procesory mogą mieć tryby adresowania nie występujące w procesorze 6502.</p>
+			<div style="clear: both"></div>
+		</div>
+		<div id="neumann" class="section">
+			<div class="v6502-image">
+				<img src="img/neumann.png" alt=""/>
+			</div>
+			<p><strong>Architektura von Neumanna</strong> - Rodzaj architektury, w którym dane i program są razem w tej samej pamięci RAM. Mówiąc potocznie, są "wrzucone do jednego worka" lub "zmieszane".</p>
+			<p>Jego podstawową wadą jest to, że procesory w takich architekturach nie rozróżniają danych od programu. Mówiąc inaczej, procesor może potraktować dane jako kod programu lub na odwrót.</p>
+			<p>Jednak większość współczesnych architektur systemów komputerowych opiera się na architekturze von Neumanna, ponieważ jest wydajniejsza, niż konkurencyjny model harwardzki. Na tej architekturze opiera się także ta obsługiwana przez procesor 6502.</p>
+		</div>
+		<div id="register" class="section">
+			<div class="v6502-image">
+				<img src="img/register.png" alt=""/>
+			</div>
+			<p><strong>Rejestr</strong> - Najszybszy typ pamięci, jaki istnieje w systemach komputerowych. Rejestry znajdują się jednak w mikroprocesorach, ponieważ rejestry są bardzo drogim typem pamięci. Nawet procesor posiada ich o wiele mniej, niż znajduje się komórek pamięci RAM, które CPU mogłoby zaadresować. W procesorze 6502 znajduje się osiem znanych rejestrów, przy czym tylko sześć jest dostępnych dla programisty.</p>
+			<div style="clear: both"></div>
+		</div>
+		<div id="page" class="section">
+			<div class="v6502-image">
+				<img src="img/page.png" alt=""/>
+			</div>
+			<p><strong>Strona</strong> - W programowaniu procesora 6502 ciągły zespół 256 bajtów w pamięci RAM. Numer strony znajduje się w najstarszym bajcie adresu.</p>
+			<div style="clear:both"></div>
+		</div>
+		<div id="little-endian" class="section">
+			<div class="v6502-image">
+				<img src="img/little-endian.png" alt=""/>
+			</div>
+			<p><strong>Little Endian</strong> - Rodzaj zapisu danych, gdzie dane np. adresy są zapisane od najmłodszego do najstarszego bajtu (czytając od lewej do prawej). Taki układ bajtów może zbić z tropu przede wszystkim analityków kodu maszynowego, ponieważ ludzie zapisują bajty tak jak tradycyjne liczby, czyli jedności po prawej. Bajty zawierające analogiczne wartości są zapisane po lewej np. gdy chcemy zapisać liczbę o wartości $6502 pisząc w kodzie maszynowym, to należy ją zapisać w takiej postaci: $0265, żeby procesor mógł poprawnie odczytać tą daną. Na szczęście nie trzeba na to zwracać uwagi pisząc program w języku asemblera, ponieważ asembler 6502 sam ustawi bajty argumentów w odpowiedniej kolejności.</p>
+			<p>Jest to jednak "wygodna" forma zapisu dla procesora, ponieważ najczęściej do wyznaczania adresu efektywnego potrzebna jest najpierw wartość najmłodszego bajtu, a procesor "przeczesuje" każdy bajt po kolei, jeśli nie wykonuje instrukcji skoku lub rozgałęzienia.</p>
+			<p>Procesor 6502 obsługuje właśnie formę Little Endian.</p>
+			<p>Istnieje również komplementarna forma Big Endian, w którym bajty są zapisywane od najstarszego do najmłodszego.</p>
+		</div>
+		<div id="effective-address" class="section">
+			<div class="v6502-image">
+				<img src="img/effective-address.png" alt=""/>
+			</div>
+			<p><strong>Adres efektywny</strong> - Adres docelowej komórki pamięci.</p>
+			<div style="clear:both"></div>
+		</div>
+		<div id="stack" class="section">
+			<div class="v6502-image">
+				<img src="img/stack.png" alt=""/>
+			</div>
+			<p><strong>Stos</strong> - Procesor 6502 może korzystać ze stosu, który znajduje się na pierwszej, nie zerowej stronie pamięci. Oznacza to, że stos może mieścić dokładnie 256 bajtów danych. Bieżący rozmiar stosu jest wskazywany przez specjalny rejestr nazywany wskaźnikiem stosu. Ma wartość $1FF, co oznacza, że wskazuje na komórkę pamięci o adresie $1FF. Gdy dany bajt pamięci zostanie położony na stos np. przez instrukcję <a href="../ops/pha.html" class="site-link">PHA</a>, wskaźnik ten zmniejsza się o jeden, co oznacza, że im mniejsza wartość wskaźnika, tym stos jest większy i może przyjąć mniejszą liczbę bajtów.</p>
+			<p>Procesor 6502 posiada rozkaz, którym można zmienić wartość wskaźnika stosu na zupełnie inny, mianowicie <a href="../ops/txs.html" class="site-link">TXS</a>. Można wykorzystać go np. do wskazania parametru podprogramu, który nie jest na szczycie stosu lub do szybkiego czyszczenia tej struktury. Jeśli chcemy nadpisać wskaźnik stosu, a następnie przywrócić jego dawną wartość, to przed nadpisaniem wskaźnika stosu należy przechować wartość w rejestrze lub w obszarze pamięci poza stroną $01, aby nie stracić dostępu do danych, które były na stosie. Stosy sprzętowe w językach programowania wysokiego poziomu są obsługiwane automatycznie, dlatego dzisiaj się pisze przeważnie w takich językach, a asembler jest używany tylko w krytycznych sytuacjach, kiedy kompilator nie jest w stanie sam tego zoptymalizować.</p>
+			<p>Poza możliwością zmiany wskaźnika stosu, jego działanie i funkcjonalność jest podobna do stosów zaimplementowanych w językach wysokiego poziomu.</p>
+		</div>
+		<div id="instruction-decoder" class="section">
+			<div class="v6502-image">
+				<img src="img/instruction-decoder.png" alt=""/>
+			</div>
+			<p><strong>Dekoder instrukcji</strong> - Układ procesora, który rozkłada wczytany opkod na "czynniki pierwsze", czyli informacje o operacji i o trybie adresowania. Programista nie może ingerować w działanie tego komponentu.</p>
+			<div style="clear:both"></div>
+		</div>
+		<div id="instruction-register" class="section">
+			<div class="v6502-image">
+				<img src="img/instruction-register.png" alt=""/>
+			</div>
+			<p><strong>Rejestr instrukcji</strong> - Rejestr, który przechowuje opkod wykonywanej instrukcji. Programista nie może ingerować w działanie tego komponentu.</p>
+			<div style="clear:both"></div>
+		</div>
+		<div id="accumulator" class="section">
+			<div class="v6502-image">
+				<img src="img/accumulator.png" alt=""/>
+			</div>
+			<p><strong>Akumulator</strong> - Jeden z rejestrów bezpośrednio dostępnych dla programisty. Jest to jedyny rejestr, na którym można bezpośrednio wykonywać znane operacje arytmetyczne i logiczne takie, jak dodawanie arytmetyczne (<a href="../ops/adc.html" class="site-link">ADC</a>) i logiczne (<a href="../ops/ora.html" class="site-link">ORA</a>) czy iloczyn logiczny (<a href="../ops/and.html" class="site-link">AND</a>).</p>
+			<div style="clear:both"></div>
+		</div>
+		<div id="x-register" class="section">
+			<div class="v6502-image">
+				<img src="img/x-register.png" alt=""/>
+			</div>
+			<p><strong>Rejestr X</strong> - Jeden z rejestrów bezpośrednio dostępnych dla programisty. W niektórych trybach adresowania pełni rolę indeksu, który ma zostać dodany do adresu-argumentu, dlatego jest często nazywany rejestrem indeksowym X.</p>
+			<div style="clear:both"></div>
+		</div>
+		<div id="y-register" class="section">
+			<div class="v6502-image">
+				<img src="img/y-register.png" alt=""/>
+			</div>
+			<p><strong>Rejestr Y</strong> - Jeden z rejestrów bezpośrednio dostępnych dla programisty. W niektórych trybach adresowania pełni rolę indeksu, który ma zostać dodany do adresu-argumentu, dlatego jest często nazywany rejestrem indeksowym Y.</p>
+			<div style="clear:both"></div>
+		</div>
+		<div id="flag-register" class="section">
+			<div class="v6502-image">
+				<img src="img/flag-register.png" alt=""/>
+			</div>
+			<p><strong>Rejestr stanu</strong> - Rejestr, którego każdy bit ma odrębną funkcję. Oto opis każdej flagi (od 7 do 0): </p>
+			<dl>
+				<dt>N (flaga znaku)</dt>
+				<dd>Jest ustawiana na 1, gdy do rejestru została zapisana wartość ujemna ($80-$FF). W przeciwnym razie przyjmuje zero. W niektórych dokumentacjach ta flaga jest oznaczana literą S.</dd>
+				<dt>V (flaga przepełnienia)</dt>
+				<dd>Jest ustawiana na 1, gdy wynik operacji arytmetycznej (<a href="../ops/adc.html" class="site-link">ADC</a> lub <a href="../ops/sbc.html" class="site-link">SBC</a>) nie mieści się w ośmiu bitach (przy założeniu, że wynik jest w reprezentacji U2). Użytkownik może ręcznie wyczyścić tą flagę za pomocą operacji <a href="../ops/clv.html" class="site-link">CLV</a>, lecz nie może w tak prosty sposób zrobić odwrotnej operacji.</dd>
+				<dt>- (niewykorzystana flaga)</dt>
+				<dd>W symulacji zawsze ma wartość 1, nie można jej wykorzystać do własnych celów.</dd>
+				<dt>B (flaga przerwania BRK)</dt>
+				<dd>Jest zawsze ustawiona na 1.</dd>
+				<dt>D (flaga dziesiętna)</dt>
+				<dd>W rzeczywistym procesorze 6502, gdy jest ustawiona na 1, są one w reprezentacji BCD (liczby dziesiętne kodowane binarnie). W Wizjerze 6502 wartość tej flagi nie wpływa na działanie procesora. Można jednak zmieniać jej wartość za pomocą instrukcji <a href="../ops/sed.html" class="site-link">SED</a> i <a href="../ops/cld.html" class="site-link">CLD</a>.</dd>
+				<dt>I (flaga wyłączenia przerwań)</dt>
+				<dd>Gdy jest ustawiona na 1, obsługa przerwania jest wyłączona. W Wizjerze 6502 nie ma to znaczenia. Można dowolnie zmieniać jej wartość za pomocą instrukcji <a href="../ops/sei.html" class="site-link">SEI</a> i <a href="../ops/cli.html" class="site-link">CLI</a>.</dd>
+				<dt>Z (flaga zera)</dt>
+				<dd>Jest ustawiona na 1, gdy w rejestrze zapisano wartość zero. W przeciwnym razie flaga jest czyszczona.</dd>
+				<dt>C (flaga przeniesienia)</dt>
+				<dd>Jest ustawiana na 1, jeśli dodawanie w reprezentacji NKB nie mieści się w ośmiu bitach lub czyszczona w przeciwnym wypadku. W odejmowaniu pełni rolę wartości przeciwnej do pożyczki tj. jej negacji. Wtedy nadal zmienia się wartość flagi C, lecz są nadawane odwrotne wartości. Można dowolnie zmieniać jej wartość za pomocą instrukcji <a href="../ops/sec.html" class="site-link">SEC</a> i <a href="../ops/clc.html" class="site-link">CLC</a>.</dd>
+			</dl>
+		</div>
+		<div id="program-counter" class="section">
+			<div class="v6502-image">
+				<img src="img/program-counter.png" alt=""/>
+			</div>
+			<p><strong>Licznik programu</strong> - Rejestr przechowujący adres miejsca w fragmencie pamięci, którego procesor traktuje go jako kod programu i go wykonuje. Właśnie dzięki licznikowi programu procesor "wie", skąd pobrać opkod lub argument rozkazu. Jest to jedyny 16-bitowy rejestr znajdujący się w procesorze 6502.</p>
+            <div style="clear:both"></div>
+		</div>
+		<div id="stack-pointer" class="section">
+			<div class="v6502-image">
+				<img src="img/stack-pointer.png" alt=""/>
+			</div>
+			<p><strong>Wskaźnik stosu</strong> - Rejestr, który wg intencji użytkownika wskazuje na komórkę pamięci, która stanowi szczyt stosu. Zasadniczo ma 9 bitów, lecz najstarszy bit jest ustawiony na 1 i nie może zostać zmieniony zarówno przez programistę, jak i przez procesor. To właśnie dzięki dziewiątemu bitowi wartości, które są kładzione na stos znajdują się na pierwszej stronie pamięci, a nie na zerowej. Wskaźnik stosu jest ustawiany głównie przy konwencjonalnych operacjach na stosie (np. <a href="../ops/pha.html" class="site-link">PHA</a>, <a href="../ops/plp.html" class="site-link">PLP</a>, <a href="../ops/brk.html" class="site-link">BRK</a>), lecz można go też ręcznie ustawić za pomocą rozkazu <a href="../ops/txs.html" class="site-link">TXS</a>.</p>
+			<p>Wskaźnik stosu jest w wielu dokumetacjach oznaczony symbolem SP.</p>
+		</div>
+		<div id="alu" class="section">
+			<div class="v6502-image">
+				<img src="img/alu.png" alt=""/>
+			</div>
+			<p><strong>Jednostka arytmetyczno-logiczna</strong> - układ odpowiedzialny za obliczenia arytmetyczne i logiczne.</p>
+			<div style="clear:both"></div>
+		</div>
+		<div id="data-bus" class="section">
+			<div class="v6502-image">
+				<img src="img/data-bus.png" alt=""/>
+			</div>
+			<p><strong>Szyna danych</strong> - połączenie (magistrala) między komponentami procesora, na której są przemieszczane dane inne, niż adresy. Często pośredniczy w wymianie danych pomiędzy rejestrami.</p>
+			<p>W procesorze 6502 ma szerokość ośmiu bitów.</p>
+			<div style="clear:both"></div>
+		</div>
+		<div id="address-bus" class="section">
+			<div class="v6502-image">
+				<img src="img/address-bus.png" alt=""/>
+			</div>
+			<p><strong>Szyna adresowa</strong> - połączenie (magistrala), na którym są przemieszczane dane, które w danej chwili pełnią rolę adresów. Za jej pomocą procesor odwołuje się do poszczególnych komórek pamięci.</p>
+			<p>W procesorze 6502 ma szerokość szesnastu bitów.</p>
+			<div style="clear:both"></div>
+		</div>
+		<div id="idl" class="section">
+			<div class="v6502-image">
+				<img src="img/idl.png" alt=""/>
+			</div>
+			<p><strong>IDL</strong> - rejestr typu zatrzaskowego, który pośredniczy w wymianie danych pomiędzy pamięcią RAM, a rejestrami.</p>
+			<div style="clear:both"></div>
+		</div>
+		<div id="data-buffer" class="section">
+			<div class="v6502-image">
+				<img src="img/data-bus-buffer.png" alt=""/>
+			</div>
+			<p><strong>Bufor szyny danych</strong> - rejestr pomocniczy.</p>
+			<div style="clear:both"></div>
+		</div>
+	</main>
+	<footer>
+		<div id="help-footer">
+			<a href="../instructions.html">Powrót &lt;&lt;</a>
+		</div>
+		<div class="copyright-note">2018 Paweł Oziomek &copy; Wszelkie prawa zastrzeżone</div>
+	</footer>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<title>Pośredni tryb adresowania Y</title>
+	<meta charset="UTF-8"/>
+	<meta name="description" content="Pośredni tryb adresowania Y"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="../../favicon.png" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit%7CSource+Code+Pro&amp;subset=latin-ext"/>
+	<link rel="stylesheet" href="../../style.min.css" />
+	<link rel="stylesheet" href="../basicstyle.min.css" />
+	<link rel="stylesheet" href="modestyle.min.css" />
+</head>
+<body>
+	<header>
+		<a class="logo" href="../../index.html">
+			<img width="100" height="100" src="../../favicon.png" alt="logo"/>
+			<h1>Wizjer 6502</h1>
+		</a>
+	</header>
+	<main>
+		<h1 id="mode-name">Tryb pośredni Y</h1>
+		<section>
+			<h3 class="desc-heading">Opis</h3>
+			<div id="desc">
+				<div class="v6502-image">
+					<img src="../../img/indirect_Y.png" alt="indirect Y"/>
+				</div>
+				<p><a href="../glossary/glossary.html#addressing-mode" class="site-link">Tryb adresowania</a>, przy którym <a href="../glossary/glossary.html#effective-address" class="site-link">adres efektywny</a> jest sumą wartości w <a href="../glossary/glossary.html#y-register" class="site-link">rejestrze Y</a> oraz adresu, który jest pod adresem na <a href="../glossary/glossary.html#page" class="site-link">stronie</a> zerowej, którego najmłodszy bajt stanowi argument. Algorytm wyznaczania adresu efektywnego jest skomplikowany - najpierw jest pobrany argument. Następnie następuje odwołanie do tej komórki. Jednak są pobierane dwie wartości - z komórki odwołanej i następnej. Do najmłodszego bajtu adresu zostaje dodana wartość rejestru Y. Po obliczeniach oba bajty tworzą razem adres efektywny. Po odwołaniu się do komórki o adresie efektywnym zostaje pobrana wartość potrzebna do operacji.</p>
+				<p>Na przykład, wykonanie instrukcji <a href="../glossary/glossary.html#assembly" class="site-link">asemblerowej</a> "<a href="../ops/lda.html" class="site-link">LDA</a> ($3E),Y", gdzie rejestr Y=$02 spowoduje, że następuje odwołanie do komórki o adresie $003E. Pod tym adresem znajduje się wartość $00. Po dodaniu wartości z rejestru Y bajt przyjmuje wartość $02. Ponieważ następna komórka przechowuje liczbę o wartości $65, następuje odwołanie się do adresu $6502. Adresu $6502, nie $0265, ponieważ procesor rozpoznaje dane zapisane w formacie <a href="../glossary/glossary.html#little-endian" class="site-link">little endian</a>. Następuje następne odwołanie, tym razem do komórki $6502. Pod tym adresem kryje się wartość $32 i taka trafia do <a href="../glossary/glossary.html#accumulator" class="site-link">akumulatora</a>.</p>
+				<p>Rozkazy te zawsze zajmują po dwa bajty ze względu na obecność ośmiobitowego argumentu.</p>
+			</div>
+		</section>
+		<section>
+			<h3 id="syntax-title">Składnia instrukcji</h3>
+			<div class="mode-syntax">
+				<span class="mnemonic">ROZ</span>
+				<span class="constant">(</span><span class="hexnumber">$??</span><span class="constant">), Y</span>
+			</div>
+			<div class="syntax-desc">
+				gdzie:<br/>
+				ROZ - mnemonik<br/>
+				$?? - ośmiobitowa liczba szesnastkowa, będąca najmłodszym bajtem pierwszego adresu na stronie zerowej
+			</div>
+		</section>
+		<section>
+			<h3 id="examples-title">Przykłady zastosowania</h3>
+			<pre id="code"><!-- może spróbuję poprawić na code-->LDA ($1E), Y
+AND ($30), Y
+ADC ($3E), Y
+CMP ($62), Y</pre>
+		</section>
+	</main>
+	<footer>
+		<div id="help-footer">
+			<a href="../instructions.html">Powrót &lt;&lt;</a>
+		</div>
+		<div class="copyright-note">2018 Paweł Oziomek &copy; Wszelkie prawa zastrzeżone</div>
+	</footer>
+</body>
+</html>

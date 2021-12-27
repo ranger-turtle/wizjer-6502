@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<title>Rozkaz LDA</title>
+	<meta charset="UTF-8"/>
+	<meta name="description" content="Opis rozkazu LDA"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="../../favicon.png" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit&amp;subset=latin-ext"/>
+	<link rel="stylesheet" href="../../style.min.css" />
+	<link rel="stylesheet" href="../basicstyle.min.css" />
+	<link rel="stylesheet" href="opstyle.min.css" />
+</head>
+<body>
+	<header>
+		<a class="logo" href="../../index.html">
+			<img width="100" height="100" src="../../favicon.png" alt="logo"/>
+			<h1>Wizjer 6502</h1>
+		</a>
+	</header>
+	<main>
+		<header>
+			<h1 id="op-name">LDA</h1>
+			<h2 id="brief-desc">Ładowanie do akumulatora</h2>
+		</header>
+		<section>
+			<h3 class="desc-heading">Opis</h3>
+			<div id="desc">
+				<div class="v6502-image">
+					<img src="../../img/lda.png" alt="lda"/>
+				</div>
+				<p>Operacja polegająca na wczytaniu wartości z pamięci do <a href="../glossary/glossary.html#accumulator" class="site-link">akumulatora</a>.</p>
+				<p>Jest najczęściej używanym rozkazem w przykładach demonstracyjnych ze względu na prostotę działania oraz obsługę wielu trybów adresowania.</p>
+				<p>Odpowiada to instrukcji w języku wysokiego poziomu: A = MEM[$??].</p>
+				<p>Komplementarnym rozkazem do LDA jest <a href="sta.html" class="site-link">STA</a>.</p>
+				<p>Operacja wpływa na <a href="../glossary/glossary.html#flag-register" class="site-link">flagi</a>: N i Z.</p>
+			</div>
+		</section>
+		<section>
+			<h3 class="table-title">Tabela opkodów</h3>
+			<div id="table-div">
+				<table>
+					<thead>
+						<tr>
+							<th>Opkod</th>
+							<th>Tryb adresowania</th>
+							<th>Czas wykonywania (cykle)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>$A9</td>
+							<td class="mode-cell"><img src="../../img/immediate.png" alt="obr"/><div><a href="../modes/immediate.html" class="mode-table-link">Natychmiastowy</a></div></td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>$A5</td>
+							<td class="mode-cell"><img src="../../img/zero_page.png" alt="obr"/><div><a href="../modes/zeropage.html" class="mode-table-link">Strony zerowej</a></div></td>
+							<td>3</td>
+						</tr>
+						<tr>
+							<td>$B5</td>
+							<td class="mode-cell"><img src="../../img/zero_page_X.png" alt="obr"/><div><a href="../modes/zeropagex.html" class="mode-table-link">Strony zerowej X</a></div></td>
+							<td>4</td>
+						</tr>
+						<tr>
+							<td>$AD</td>
+							<td class="mode-cell"><img src="../../img/absolute.png" alt="obr"/><div><a href="../modes/absolute.html" class="mode-table-link">Bezwzględny</a></div></td>
+							<td>4</td>
+						</tr>
+						<tr>
+							<td>$BD</td>
+							<td class="mode-cell"><img src="../../img/absolute_X.png" alt="obr"/><div><a href="../modes/absolutex.html" class="mode-table-link">Bezwzględny X</a></div></td>
+							<td>4*</td>
+						</tr>
+						<tr>
+							<td>$B9</td>
+							<td class="mode-cell"><img src="../../img/absolute_Y.png" alt="obr"/><div><a href="../modes/absolutey.html" class="mode-table-link">Bezwzględny Y</a></div></td>
+							<td>4*</td>
+						</tr>
+						<tr>
+							<td>$A1</td>
+							<td class="mode-cell"><img src="../../img/indirect_X.png" alt="obr"/><div><a href="../modes/xindirect.html" class="mode-table-link">Pośredni X</a></div></td>
+							<td>6</td>
+						</tr>
+						<tr>
+							<td>$B1</td>
+							<td class="mode-cell"><img src="../../img/indirect_Y.png" alt="obr"/><div><a href="../modes/yindirect.html" class="mode-table-link">Pośredni Y</a></div></td>
+							<td>5*</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="time-notes">* Rozkaz wykonuje się o jeden cykl dłużej, kiedy nastąpiło przekroczenie strony</div>
+			<div style="clear:both;"></div>
+		</section>
+	</main>
+	<footer>
+		<div id="help-footer">
+			<a href="../instructions.html">Powrót &lt;&lt;</a>
+		</div>
+		<div class="copyright-note">2018 Paweł Oziomek &copy; Wszelkie prawa zastrzeżone</div>
+	</footer>
+</body>
+</html>

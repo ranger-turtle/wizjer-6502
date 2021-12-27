@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<title>Rozkaz SBC</title>
+	<meta charset="UTF-8"/>
+	<meta name="description" content="Opis rozkazu SBC"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="../../favicon.png" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit&amp;subset=latin-ext"/>
+	<link rel="stylesheet" href="../../style.min.css" />
+	<link rel="stylesheet" href="../basicstyle.min.css" />
+	<link rel="stylesheet" href="opstyle.min.css" />
+</head>
+<body>
+	<header>
+		<a class="logo" href="../../index.html">
+			<img width="100" height="100" src="../../favicon.png" alt="logo"/>
+			<h1>Wizjer 6502</h1>
+		</a>
+	</header>
+	<main>
+		<header>
+			<h1 id="op-name">SBC</h1>
+			<h2 id="brief-desc">Odejmowanie z pożyczką</h2>
+		</header>
+		<section>
+			<h3 class="desc-heading">Opis</h3>
+			<div id="desc">
+				<div class="v6502-image">
+					<img src="../../img/sbc.png" alt="sbc"/>
+				</div>
+				<p>Operacja odejmowania realizowana w <a href="../glossary/glossary.html#processor" class="site-link">procesorze 6502</a>. Pierwszy składnik jest pobierany z <a href="../glossary/glossary.html#accumulator" class="site-link">akumulatora</a>, natomiast drugi jest pobierany z pamięci. Wynik jest zapisywany w akumulatorze.</p>
+				<p><a href="../glossary/glossary.html#flag-register" class="site-link">Flaga przeniesienia</a> przejmuje rolę negacji pożyczki. Oznacza to, że jeśli flaga przeniesienia ma wartość 0, to od wyniku odejmujemy jeden, czyli pożyczkę. Gdy odejmujemy większą liczbę od mniejszej, to wtedy flaga przeniesienia ma wartość 1, gdyż wtedy nie nastąpiła pożyczka. Jest to przydatna funkcja, gdy chcemy odejmować liczby w reprezentacji NKB nie mieszczące się w jednym bajcie np. po odjęciu liczb $05 (5<sub>D</sub>) i $FF (255<sub>D</sub>). Wyjdzie wtedy liczba $FF06, a tylko najmłodszy bajt tej liczby może się zmieścić w akumulatorze. Na szczęście za pomocą pożyczki możesz odjąć starszy bajt poprzedzający (lub następujący w little endian) od jeden, dzięki czemu można zapisać dwubajtową różnicę. Ponieważ nastąpiła pożyczka, flaga przeniesienia została wyczyszczona.</p>
+				<p>Jednak możliwość odejmowania z pożyczką ma też wadę - jeśli flaga przeniesienia miała wartość 0, to wtedy różnica zapisana w akumulatorze jest o jeden mniejsza, niż suma dwóch liczb, które biorą w operacji, np. gdy odejmiemy liczby $05 i $02, a flaga przeniesienia jest wtedy równa 0, to akumulator przyjmie wartość $02, a to nie jest różnica liczb $05 i $02. Powodem jest odjęcie pożyczki do właściwego wyniku. Różnica dwóch liczb podanych w przykładzie jest równa $03, więc odjęcie pożyczki daje liczbę $02. Dlatego należy zastosować operację <a href="sec.html" class="site-link">SEC</a> przed odejmowaniem, jeśli przeniesienie jest równe 0.</p>
+				<p>Liczby w operacji dodawania są ze znakiem (U2). Jeśli poprawnej różnicy nie można przedstawić w reprezentacji U2 dla jednego bajtu, to wtedy jest ustawiana flaga przepełnienia (V) na wartość 1. Na przykład różnica liczb $80 (10000000<sub>B</sub>, -128<sub>D</sub>) i $01 (00000001<sub>B</sub>, 1<sub>D</sub>) wynosi -129. Liczba ta w systemie binarnym ma wartość 01111111, a taka w reprezentacji U2 ma wartość 127, co nie jest poprawnym wynikiem.</p>
+				<p>W prawdziwym procesorze 6502, jeśli flaga D jest ustawiona na jeden, liczby są w kodowaniu BCD. Jednak w tej symulacji składniki zawsze są w reprezentacji U2, niezależnie od stanu flagi D.</p>
+				<p>Rozkaz SBC odpowiada w przybliżeniu sekwencji instrukcji w języku wysokiego poziomu: A = A - L - C; C = 1;, gdzie L oznacza liczbę ze znakiem.</p>
+				<p>Operacja wpływa na flagi: N, V, Z, C.</p>
+			</div>
+		</section>
+		<section>
+			<h3 class="table-title">Tabela opkodów</h3>
+			<div id="table-div">
+				<table>
+					<thead>
+						<tr>
+							<th>Opkod</th>
+							<th>Tryb adresowania</th>
+							<th>Czas wykonywania (cykle)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>$E9</td>
+							<td class="mode-cell"><img src="../../img/immediate.png" alt="obr"/><div><a href="../modes/immediate.html" class="mode-table-link">Natychmiastowy</a></div></td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>$E5</td>
+							<td class="mode-cell"><img src="../../img/zero_page.png" alt="obr"/><div><a href="../modes/zeropage.html" class="mode-table-link">Strony zerowej</a></div></td>
+							<td>3</td>
+						</tr>
+						<tr>
+							<td>$F5</td>
+							<td class="mode-cell"><img src="../../img/zero_page_X.png" alt="obr"/><div><a href="../modes/zeropagex.html" class="mode-table-link">Strony zerowej X</a></div></td>
+							<td>4</td>
+						</tr>
+						<tr>
+							<td>$ED</td>
+							<td class="mode-cell"><img src="../../img/absolute.png" alt="obr"/><div><a href="../modes/absolute.html" class="mode-table-link">Bezwzględny</a></div></td>
+							<td>4</td>
+						</tr>
+						<tr>
+							<td>$FD</td>
+							<td class="mode-cell"><img src="../../img/absolute_X.png" alt="obr"/><div><a href="../modes/absolutex.html" class="mode-table-link">Bezwzględny X</a></div></td>
+							<td>4*</td>
+						</tr>
+						<tr>
+							<td>$F9</td>
+							<td class="mode-cell"><img src="../../img/absolute_Y.png" alt="obr"/><div><a href="../modes/absolutey.html" class="mode-table-link">Bezwzględny Y</a></div></td>
+							<td>4*</td>
+						</tr>
+						<tr>
+							<td>$E1</td>
+							<td class="mode-cell"><img src="../../img/indirect_X.png" alt="obr"/><div><a href="../modes/xindirect.html" class="mode-table-link">Pośredni X</a></div></td>
+							<td>6</td>
+						</tr>
+						<tr>
+							<td>$F1</td>
+							<td class="mode-cell"><img src="../../img/indirect_Y.png" alt="obr"/><div><a href="../modes/yindirect.html" class="mode-table-link">Pośredni Y</a></div></td>
+							<td>5*</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="time-notes">* Rozkaz wykonuje się o jeden cykl dłużej, kiedy nastąpiło przekroczenie strony</div>
+			<div style="clear:both;"></div>
+		</section>
+	</main>
+	<footer>
+		<div id="help-footer">
+			<a href="../instructions.html">Powrót &lt;&lt;</a>
+		</div>
+		<div class="copyright-note">2018 Paweł Oziomek &copy; Wszelkie prawa zastrzeżone</div>
+	</footer>
+</body>
+</html>

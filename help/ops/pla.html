@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<title>Rozkaz PLA</title>
+	<meta charset="UTF-8"/>
+	<meta name="description" content="Opis rozkazu PLA"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="../../favicon.png" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit&amp;subset=latin-ext"/>
+	<link rel="stylesheet" href="../../style.min.css" />
+	<link rel="stylesheet" href="../basicstyle.min.css" />
+	<link rel="stylesheet" href="opstyle.min.css" />
+</head>
+<body>
+	<header>
+		<a class="logo" href="../../index.html">
+			<img width="100" height="100" src="../../favicon.png" alt="logo"/>
+			<h1>Wizjer 6502</h1>
+		</a>
+	</header>
+	<main>
+		<header>
+			<h1 id="op-name">PLA</h1>
+			<h2 id="brief-desc">Ładowanie z akumulatora na stos.</h2>
+		</header>
+		<section>
+			<h3 class="desc-heading">Opis</h3>
+			<div id="desc">
+				<div class="v6502-image">
+					<img src="../../img/pla.png" alt="pla"/>
+				</div>
+				<p>Zdejmuje wartość ze szczytu <a href="../glossary/glossary.html#stack" class="site-link">stosu</a> na <a href="../glossary/glossary.html#accumulator" class="site-link">akumulator</a>. Sama komórka pamięci, która stanowiła szczyt stosu nie ulega zmianie, zmienia się tylko <a href="../glossary/glossary.html#stack-pointer" class="site-link">wskaźnik stosu</a>. Po zmianie komórka, która stanowiła szczyt stosu została niejako "poza stosem".</p>
+				<p>Można nadal wykonać operację PLA nawet, gdy użytkownik nie wstawił na stos żadnego elementu.</p>
+				<p><a href="../glossary/glossary.html#processor" class="site-link">Procesor 6502</a> tak naprawdę nie wie, kiedy można odejmować elementy do stosu sprzętowego. Musisz sam o to zadbać.</p>
+				<div style="clear: both;"></div>
+			</div>
+		</section>
+		<section>
+			<h3 class="table-title">Tabela opkodów</h3>
+			<div id="table-div">
+				<table>
+					<thead>
+						<tr>
+							<th>Opkod</th>
+							<th>Tryb adresowania</th>
+							<th>Czas wykonywania (cykle)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>$68</td>
+							<td class="mode-cell"><img src="../../img/implied.png" alt="obr"/><div><a href="../modes/implied.html" class="mode-table-link">Niejawny</a></div></td>
+							<td>4</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div style="clear:both;"></div>
+		</section>
+	</main>
+	<footer>
+		<div id="help-footer">
+			<a href="../instructions.html">Powrót &lt;&lt;</a>
+		</div>
+		<div class="copyright-note">2018 Paweł Oziomek &copy; Wszelkie prawa zastrzeżone</div>
+	</footer>
+</body>
+</html>

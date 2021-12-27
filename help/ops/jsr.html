@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<title>Rozkaz JSR</title>
+	<meta charset="UTF-8"/>
+	<meta name="description" content="Opis rozkazu JSR"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="../../favicon.png" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit&amp;subset=latin-ext"/>
+	<link rel="stylesheet" href="../../style.min.css" />
+	<link rel="stylesheet" href="../basicstyle.min.css" />
+	<link rel="stylesheet" href="opstyle.min.css" />
+</head>
+<body>
+	<header>
+		<a class="logo" href="../../index.html">
+			<img width="100" height="100" src="../../favicon.png" alt="logo"/>
+			<h1>Wizjer 6502</h1>
+		</a>
+	</header>
+	<main>
+		<header>
+			<h1 id="op-name">JSR</h1>
+			<h2 id="brief-desc">Skok do podprogramu</h2>
+		</header>
+		<section>
+			<h3 class="desc-heading">Opis</h3>
+			<div id="desc">
+				<div class="v6502-image">
+					<img src="../../img/jsr.png" alt="jsr"/>
+				</div>
+				<p>Wykonuje skok do innego miejsca w programie, przy czym na <a href="../glossary/glossary.html#stack" class="site-link">stos</a> zostaje położony adres powrotny wskazujący na miejsce obok miejsca w pamięci, w którym wykonano rozkaz JSR.</p>
+				<p>Za pomocą tego rozkazu można zasymulować podprogram, lub w językach wysokiego poziomu procedurę lub funkcję. Można napisać <a href="../glossary/glossary.html#assembly" class="site-link">kod asemblerowy</a> do wielokrotnego wykorzystania, do którego można skoczyć i z niego wrócić do punktu pierwotnego po wykonaniu.</p>
+				<p>Aby powrócić z podprogramu, należy wywołać rozkaz <a href="rts.html" class="site-link">RTS</a>. Należy się upewnić, czy na stosie znajduje się właściwy adres powrotny, gdyż ten rozkaz jest "bezkrytyczny".</p>
+			</div>
+		</section>
+		<section>
+			<h3 class="table-title">Tabela opkodów</h3>
+			<div id="table-div">
+				<table>
+					<thead>
+						<tr>
+							<th>Opkod</th>
+							<th>Tryb adresowania</th>
+							<th>Czas wykonywania (cykle)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>$20</td>
+							<td class="mode-cell"><img src="../../img/absolute.png" alt="obr"/><div><a href="../modes/absolute.html" class="mode-table-link">Bezwzględny</a></div></td>
+							<td>6</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div style="clear:both;"></div>
+		</section>
+	</main>
+	<footer>
+		<div id="help-footer">
+			<a href="../instructions.html">Powrót &lt;&lt;</a>
+		</div>
+		<div class="copyright-note">2018 Paweł Oziomek &copy; Wszelkie prawa zastrzeżone</div>
+	</footer>
+</body>
+</html>

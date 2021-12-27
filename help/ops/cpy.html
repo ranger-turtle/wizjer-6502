@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<title>Rozkaz CPY</title>
+	<meta charset="UTF-8"/>
+	<meta name="description" content="Opis rozkazu CPY"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="../../favicon.png" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit&amp;subset=latin-ext"/>
+	<link rel="stylesheet" href="../../style.min.css" />
+	<link rel="stylesheet" href="../basicstyle.min.css" />
+	<link rel="stylesheet" href="opstyle.min.css" />
+</head>
+<body>
+	<header>
+		<a class="logo" href="../../index.html">
+			<img width="100" height="100" src="../../favicon.png" alt="logo"/>
+			<h1>Wizjer 6502</h1>
+		</a>
+	</header>
+	<main>
+		<header>
+			<h1 id="op-name">CPY</h1>
+			<h2 id="brief-desc">Porównanie liczby z rejestru Y z liczbą z pamięci.</h2>
+		</header>
+		<section>
+			<h3 class="desc-heading">Opis</h3>
+			<div id="desc">
+				<div class="v6502-image">
+					<img src="../../img/cpy.png" alt="cpy"/>
+				</div>
+				<p>Operacja porównania liczb z <a href="../glossary/glossary.html#y-register" class="site-link">rejestru Y</a> i z pamięci. Sprowadza się do ustawienia trzech <a href="../glossary/glossary.html#flag-register" class="site-link">flag</a>: N, Z i C. Jakie przyjmą wartości, to zależy od warunków przedstawionych w poniższej tabelce.</p>
+				<p>Odpowiada to wyliczeniu wyrażenia warunkowego w instrukcji if wysokiego poziomu, jednak aby zasymulować warunkowe wykonanie bloku, należy użyć odpowiedniego rozkazu rozgałęzienia np. <a href="bcs.html" class="site-link">BCS</a>.</p>
+				<p>Ten rozkaz różni się od rozkazu <a href="cpx.html" class="site-link">CPX</a> jedynie rejestrem używanym do porównania.</p>
+				<p>Operacja wpływa na flagi: N, Z i C.</p>
+			</div>
+		</section>
+		<section>
+			<h3 class="table-title">Wartości flag w zależności od warunku</h3>
+			<div id="compare-table-div">
+				<table>
+					<thead>
+						<tr>
+							<th>Warunek</th>
+							<th>N</th>
+							<th>Z</th>
+							<th>C</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="condition">Y &lt; Pamięć</td>
+							<td>1</td>
+							<td>0</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td class="condition">Y = Pamięć</td>
+							<td>0</td>
+							<td>1</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td class="condition">Y &gt; Pamięć</td>
+							<td>0</td>
+							<td>0</td>
+							<td>1</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+		<section>
+			<h3 class="table-title">Tabela opkodów</h3>
+			<div id="table-div">
+				<table>
+					<thead>
+						<tr>
+							<th>Opkod</th>
+							<th>Tryb adresowania</th>
+							<th>Czas wykonywania (cykle)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>$C0</td>
+							<td class="mode-cell"><img src="../../img/immediate.png" alt="obr"/><div><a href="../modes/immediate.html" class="mode-table-link">Natychmiastowy</a></div></td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>$C4</td>
+							<td class="mode-cell"><img src="../../img/zero_page.png" alt="obr"/><div><a href="../modes/zeropage.html" class="mode-table-link">Strony zerowej</a></div></td>
+							<td>3</td>
+						</tr>
+						<tr>
+							<td>$CC</td>
+							<td class="mode-cell"><img src="../../img/absolute.png" alt="obr"/><div><a href="../modes/absolute.html" class="mode-table-link">Bezwzględny</a></div></td>
+							<td>4</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div style="clear:both;"></div>
+		</section>
+	</main>
+	<footer>
+		<div id="help-footer">
+			<a href="../instructions.html">Powrót &lt;&lt;</a>
+		</div>
+		<div class="copyright-note">2018 Paweł Oziomek &copy; Wszelkie prawa zastrzeżone</div>
+	</footer>
+</body>
+</html>

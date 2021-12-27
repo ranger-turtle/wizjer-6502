@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<title>Wizjer 6502</title>
+	<meta charset="UTF-8"/>
+	<meta name="description" content="Aplikacja wizualizująca działanie asemblera i procesora 6502" />
+	<meta name="keywords" content="wizualizacja, procesor, 6502" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="favicon.png" />
+	<link rel="stylesheet" href="fontello/css/animation.css"/>
+	<link rel="stylesheet" href="fontello/css/fontello.css"/>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit%7CSource+Code+Pro&amp;subset=latin-ext"/>
+	<link rel="stylesheet" href="style.min.css"/>
+</head>
+<body>
+	<header>
+		<img width="100" height="100" src="favicon.png" alt="logo"/>
+		<h1>Wizjer 6502</h1>
+	</header>
+	<!--[if lte IE 8]>
+<h1>Aplikacja Wizjer 6502 nie będzie działać na Internet Explorer 8 lub starszych. Proszę użyć innej przeglądarki, która obsługuje HTML5.</h1>
+	<![endif]-->
+	<noscript><h1>Proszę włączyć JavaScript, aby móc skorzystać z symulacji.</h1></noscript>
+	<aside>
+		<div id="side-button-sec">
+			<div class="side-button" id="switch-light-button" title="Przestawia tło na ciemne lub jasne">
+				<i class="icon-lightbulb"></i>
+			</div>
+			<a href="help/instructions.html" target="_blank">
+				<div class="side-button" id="info-button" title="Informacje o programie i instrukcja obsługi" data-url="help/instructions.html">
+					<i class="icon-info"></i>
+				</div>
+			</a>
+		</div>
+	</aside>
+	<main>
+		<div id="control-panel">
+			<div id="ctrl-button-sec">
+				<button class="ctrl-button" id="start-button" title="Rozpoczyna wykonywanie programu"><i class="icon-play"></i>Start</button>
+				<button class="ctrl-button disabled-button" id="continue-button" title="Wznawia automatyczne wykonywanie programu" disabled><i class="icon-play-circled"></i>Wznów</button>
+				<button class="ctrl-button" id="step-button" title="Rozpoczyna wykonywanie krokowe lub wykonuje jedną mikroinstrukcję"><i class="icon-to-end"></i>Krok</button><br/>
+			</div>
+			<div id="instr-button-sec">
+				<button class="instr-button" id="load-button" title="Ładuje napisane instrukcje asemblera do pamięci RAM"><i class="icon-down-open"></i>Załaduj</button>
+			</div>
+			<textarea class="code" id="source-code" rows="10" spellcheck="false">Wpisz kod asemblera...</textarea>
+			<div id="message"></div>
+			<div id="cycle-sec">
+				<i class="icon-clock"></i> Bieżący cykl: <span id="cycle-number">0</span>
+			</div>
+			<div id="asm-instr-sec" title="Bieżąca instrukcja w asemblerze 6502">
+			</div>
+			<div id="image-sec">
+				<div class="v6502-image" id="asm-image">
+					<img src="img/nic.png" alt="Rozkaz" />
+				</div>
+				<div class="v6502-image" id="addressing-mode-image">
+					<img src="img/nic.png" alt="Tryb" />
+				</div>
+			</div>
+		</div>
+		<div id="visual-assembly">
+			<h2 class="cpu-caption">Procesor</h2>
+			<canvas id="cpu-canv" width="694" height="416"></canvas>
+			<div id="pc-form">
+				<label for="pc-input">Licznik programu: </label>
+				<input type="text" id="pc-input" value="0000" title="Wartość adresu pierwszej wykonywanej instrukcji"/>
+				<button class="other-button" id="pc-update-button"><i class="icon-pencil"></i> Zmień</button>
+			</div>
+			<div>
+				<label for="rvi1">Wyświetl rzędy od: </label>
+				<input type="text" class="ram-view-input" id="rvi1" value="000" title="Numer pierwszego rzędu, jaki ma zostać wyświetlony"/>0
+				<label for="rvi2"> do </label>
+				<input type="text" class="ram-view-input" id="rvi2" value="00F" title="Numer ostatniego rzędu, jaki ma zostać wyświetlony"/>0
+				<button class="other-button" id="ram-table-refresh-button"><i class="icon-arrows-cw"></i> Odśwież</button>
+			</div>
+			<div id="table-wrapper">
+				<table id="ram-table">
+					<thead>
+						<tr><th colspan="17">PAMIĘĆ RAM</th></tr>
+					</thead>
+					<tbody id="ram-cells"></tbody>
+				</table>
+			</div>
+			<table id="console">
+				<tbody id="console-cells">
+				</tbody>
+			</table>
+		</div>
+	</main>
+	<footer>
+		<div class="copyright-note">2022 Paweł Oziomek &copy; Wszelkie prawa zastrzeżone</div>
+	</footer>
+	<script src="https://code.jquery.com/jquery-latest.min.js" ></script>
+	<script src="fabric.min.js"></script> <!--Manipulacja elementem canvas-->
+	<!--<script src="shapes.js"></script>
+	<script src="console.js"></script>
+	<script src="decode.js"></script>
+	<script src="program-control.js"></script>
+	<script src="reactions.js"></script>
+	<script src="emu.js"></script>
+	<script src="interface.js"></script>
+	<script>
+		$(document).ready(init);
+	</script>-->
+	<script src="sim.min.js"></script>
+</body>
+</html>
