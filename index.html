@@ -44,8 +44,24 @@
 			<div id="instr-button-sec">
 				<button class="instr-button" id="load-button" title="Ładuje napisane instrukcje asemblera do pamięci RAM"><i class="icon-down-open"></i>Załaduj</button>
 			</div>
-			<textarea class="code" id="source-code" rows="10" spellcheck="false">Wpisz kod asemblera...</textarea>
-			<div id="message"></div>
+			<div id="code-sec">
+				<ul class="code-tabs">
+					<li id="code-edit-tab" class="active">
+						Edycja
+					</li>
+					<li id="code-debug-tab">
+						Śledzenie
+					</li>
+				</ul>
+				<div id="code-edit-sec">
+					<textarea class="code" id="source-code" rows="10" placeholder="Wpisz kod asemblera..."
+						aria-placeholder="Wpisz kod asemblera..." spellcheck="false"></textarea>
+					<div id="message"></div>
+				</div>
+				<div id="code-debug-sec">
+					<ul id="loaded-source-code" class="code"></ul>
+				</div>
+			</div>
 			<div id="cycle-sec">
 				<i class="icon-clock"></i> Bieżący cykl: <span id="cycle-number">0</span>
 			</div>
@@ -69,10 +85,10 @@
 				<button class="other-button" id="pc-update-button"><i class="icon-pencil"></i> Zmień</button>
 			</div>
 			<div>
-				<label for="rvi1">Wyświetl rzędy od: </label>
-				<input type="text" class="ram-view-input" id="rvi1" value="000" title="Numer pierwszego rzędu, jaki ma zostać wyświetlony"/>0
-				<label for="rvi2"> do </label>
-				<input type="text" class="ram-view-input" id="rvi2" value="00F" title="Numer ostatniego rzędu, jaki ma zostać wyświetlony"/>0
+				<label for="rvi1">Adres pierwszej komórki: </label>
+				<input type="text" class="ram-view-input" id="rvi1" value="0" title="Adres pierwszego bajtu, jaki ma się znaleźć w instrukcji"/>
+				<label for="rvi2"> Ilość bajtów:</label>
+				<input type="text" class="ram-view-input" id="rvi2" value="16" title="Liczba bajtów następujących po adresie do wyświetlenia"/>
 				<button class="other-button" id="ram-table-refresh-button"><i class="icon-arrows-cw"></i> Odśwież</button>
 			</div>
 			<div id="table-wrapper">
@@ -94,7 +110,7 @@
 	</footer>
 	<script src="https://code.jquery.com/jquery-latest.min.js" ></script>
 	<script src="fabric.min.js"></script> <!--Manipulacja elementem canvas-->
-	<!--<script src="shapes.js"></script>
+	<!-- <script src="shapes.js"></script>
 	<script src="console.js"></script>
 	<script src="decode.js"></script>
 	<script src="program-control.js"></script>
@@ -103,7 +119,7 @@
 	<script src="interface.js"></script>
 	<script>
 		$(document).ready(init);
-	</script>-->
+	</script> -->
 	<script src="sim.min.js"></script>
 </body>
 </html>
