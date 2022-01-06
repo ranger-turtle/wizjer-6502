@@ -35,6 +35,7 @@
 	<p>Języki asemblera uwolniły ludzi od pisania w kodzie maszynowym, które jest nie tylko żmudne, ale i może dopuścić napisanie źle działającego kodu, a poszukiwanie błędów w kodzie maszynowym jest bardzo trudne. Ponieważ w wielu procesorach, w tym 6502 na każdy rozkaz przypada tyle opkodów, ile trybów adresowania, w asemblerze wszystkie instrukcje wykonujące tą samą czynność są opisane tym samym mnemonikiem, a tryb adresowania jest ustalany na podstawie składni argumentów. W języku assemblera 6502 każda operacja ma ilość opkodów odpowiadającą ilości obsługiwanych trybów adresowania. Asembler podczas tłumaczenia kodu układa bajty argumentów nieośmiobitowych zgodnie z formą reprezentacji danych rozpoznawanych przez procesor (little endian lub big endian).</p>
 	<p>Asembler nie posiada predefiniowanych funkcji wykonujących więcej, niż jeden rozkaz maszynowy, lecz istnieją pakiety zapewniające podobną funkcjonalność. To, co można bezpośrednio zrobić w języku asemblera, zależy to od mikroprocesora, dla którego zaprojektowano język, ale najczęściej można wykonywać jedynie bardzo proste operacje na liczbach, a wykonywanie instrukcji warunkowych, pętli, czy funkcji należy wykonać za pomocą instrukcji skoku, liczników i flag, a to są elementy występujące w wielu mikroprocesorach. Inną wadą języków asemblera jest ich nieprzenośność tzn. raz napisanego kodu nie można wykorzystać na innym modelu mikroprocesora, ponieważ instrukcje asemblerowe operują na konkretnych komponentach konkretnego procesora.</p>
 	<p>Odpowiednikiem kompilacji języków asemblera jest asemblacja.</p>
+	<p>Wadami asemblera są m. in. ryzyko popełnienia błędu ciężkiego do znalezienia gdy jest wiele linii kodu, napisania kodu zmieniającego siebie samego czy zapomnienia ustawienia specjalnej flagi, aby operacja przeszła poprawnie, co jest czynnością, którą należy wykonywać przy programowaniu niskopoziomowym mimo, że przy dodawaniu ręcznym nie jest to konieczne. Do każdej architektury procesora jest przyporządkowana jedna rodzina podobnych do siebie asemblerów co powoduje nieprzenośność kodu asemblerowego. Te powyższe wady spowodowały, że powstały języki programowania wyższego poziomu, które są przenośne, ich kod stosunkowo dobrze opisuje rozwiązanie problemu, a skomplikowane ciągi operacji w kodzie maszynowym, które mają być wykonywane zgodnie z naszą wolą są generowane przez kompilator, a w kodzie są przedstawione jako funkcje biblioteczne lub operacje wyrażane za pomocą operatorów (np. w języku C lub wyższego poziomu nigdy nie musimy uwzględniać operacji czyszczenia <a href="#flag-register" class="site-link">flagi przeniesienia</a> przed dodawaniem, bo taką operację dorzuci kompilator w razie potrzeby, ponadto taka operacja może mieć inny przebieg w innych procesorach lub w ogóle jej może nie być).</p>
 	<p>Warto się nauczyć pisać chociaż krótkie programy w języku asemblera, a najlepiej tym zawartym w symulacji, gdyż dzięki temu można poznać podstawowe zasady działania systemów komputerowych i ich architektury. Taka wiedza przyda się programistom, którzy muszą dokładnie zaprogramować sprzęt o stosunkowo nowej architekturze, a programiści piszący w językach wysokiego poziomu będą mogli pisać bardziej wydajny kod. Jednak nie należy przesadzać z optymalizacją, gdyż część nieoptymalnych instrukcji poprawi za nas kompilator bądź interpreter.</p>
 		</div>
 		<div id="machine-code" class="section">
@@ -58,7 +59,7 @@
 			<div class="v6502-image">
 				<img src="img/addressing-mode.png" alt=""/>
 			</div>
-			<p><strong>Tryb adresowania</strong> - To jest sposób pobrania danych. Najczęściej wiąże się to z użyciem jakiegoś adresu komórki docelowej, ale są też takie, które pozwalają na szybką lokalizację danych np. <a href="../modes/immediate.html" class="site-link">natychmiastowy</a> w 6502.</p>
+			<p><strong>Tryb adresowania</strong> - To jest sposób pobrania danych. Najczęściej wiąże się to z użyciem jakiegoś adresu komórki docelowej, ale są też takie, które pozwalają na szybką lokalizację danych np. <a href="../modes/immediate.html" class="site-link">natychmiastowy</a> w 6502 i x86.</p>
 	<p>Należy liczyć się z tym, że część trybów adresowania w 6502 nie znajduje się w niektórych procesorach, a inne procesory mogą mieć tryby adresowania nie występujące w procesorze 6502.</p>
 			<div style="clear: both"></div>
 		</div>
@@ -74,7 +75,7 @@
 			<div class="v6502-image">
 				<img src="img/register.png" alt=""/>
 			</div>
-			<p><strong>Rejestr</strong> - Najszybszy typ pamięci, jaki istnieje w systemach komputerowych. Rejestry znajdują się jednak w mikroprocesorach, ponieważ rejestry są bardzo drogim typem pamięci. Nawet procesor posiada ich o wiele mniej, niż znajduje się komórek pamięci RAM, które CPU mogłoby zaadresować. W procesorze 6502 znajduje się osiem znanych rejestrów, przy czym tylko sześć jest dostępnych dla programisty.</p>
+			<p><strong>Rejestr</strong> - Najszybszy typ pamięci, jaki istnieje w systemach komputerowych. Rejestry znajdują się jednak w mikroprocesorach, ponieważ rejestry są bardzo drogim typem pamięci. Nawet procesor posiada ich o wiele mniej, niż znajduje się komórek pamięci RAM, które CPU mogłoby zaadresować. W procesorze 6502 znajduje się co najmniej osiem znanych rejestrów, przy czym tylko sześć jest dostępnych dla programisty.</p>
 			<div style="clear: both"></div>
 		</div>
 		<div id="page" class="section">
@@ -106,7 +107,7 @@
 			</div>
 			<p><strong>Stos</strong> - Procesor 6502 może korzystać ze stosu, który znajduje się na pierwszej, nie zerowej stronie pamięci. Oznacza to, że stos może mieścić dokładnie 256 bajtów danych. Bieżący rozmiar stosu jest wskazywany przez specjalny rejestr nazywany wskaźnikiem stosu. Ma wartość $1FF, co oznacza, że wskazuje na komórkę pamięci o adresie $1FF. Gdy dany bajt pamięci zostanie położony na stos np. przez instrukcję <a href="../ops/pha.html" class="site-link">PHA</a>, wskaźnik ten zmniejsza się o jeden, co oznacza, że im mniejsza wartość wskaźnika, tym stos jest większy i może przyjąć mniejszą liczbę bajtów.</p>
 			<p>Procesor 6502 posiada rozkaz, którym można zmienić wartość wskaźnika stosu na zupełnie inny, mianowicie <a href="../ops/txs.html" class="site-link">TXS</a>. Można wykorzystać go np. do wskazania parametru podprogramu, który nie jest na szczycie stosu lub do szybkiego czyszczenia tej struktury. Jeśli chcemy nadpisać wskaźnik stosu, a następnie przywrócić jego dawną wartość, to przed nadpisaniem wskaźnika stosu należy przechować wartość w rejestrze lub w obszarze pamięci poza stroną $01, aby nie stracić dostępu do danych, które były na stosie. Stosy sprzętowe w językach programowania wysokiego poziomu są obsługiwane automatycznie, dlatego dzisiaj się pisze przeważnie w takich językach, a asembler jest używany tylko w krytycznych sytuacjach, kiedy kompilator nie jest w stanie sam tego zoptymalizować.</p>
-			<p>Poza możliwością zmiany wskaźnika stosu, jego działanie i funkcjonalność jest podobna do stosów zaimplementowanych w językach wysokiego poziomu.</p>
+			<p>Poza możliwością zmiany wskaźnika stosu, jego działanie i zastosowanie są podobne do stosów zaimplementowanych w językach wysokiego poziomu.</p>
 		</div>
 		<div id="instruction-decoder" class="section">
 			<div class="v6502-image">
@@ -178,7 +179,7 @@
 			<div class="v6502-image">
 				<img src="img/stack-pointer.png" alt=""/>
 			</div>
-			<p><strong>Wskaźnik stosu</strong> - Rejestr, który wg intencji użytkownika wskazuje na komórkę pamięci, która stanowi szczyt stosu. Zasadniczo ma 9 bitów, lecz najstarszy bit jest ustawiony na 1 i nie może zostać zmieniony zarówno przez programistę, jak i przez procesor. To właśnie dzięki dziewiątemu bitowi wartości, które są kładzione na stos znajdują się na pierwszej stronie pamięci, a nie na zerowej. Wskaźnik stosu jest ustawiany głównie przy konwencjonalnych operacjach na stosie (np. <a href="../ops/pha.html" class="site-link">PHA</a>, <a href="../ops/plp.html" class="site-link">PLP</a>, <a href="../ops/brk.html" class="site-link">BRK</a>), lecz można go też ręcznie ustawić za pomocą rozkazu <a href="../ops/txs.html" class="site-link">TXS</a>.</p>
+			<p><strong>Wskaźnik stosu</strong> - Rejestr, który wg intencji użytkownika wskazuje na komórkę pamięci, która stanowi szczyt stosu. Zasadniczo ma 9 bitów, lecz najstarszy bit jest ustawiony na 1 i nie może zostać zmieniony w jakikolwiek sposób. To właśnie dzięki dziewiątemu bitowi wartości, które są kładzione na stos znajdują się na pierwszej stronie pamięci, a nie na zerowej. Wskaźnik stosu jest ustawiany głównie przy konwencjonalnych operacjach na stosie (np. <a href="../ops/pha.html" class="site-link">PHA</a>, <a href="../ops/plp.html" class="site-link">PLP</a>, <a href="../ops/brk.html" class="site-link">BRK</a>), lecz można go też ręcznie ustawić za pomocą rozkazu <a href="../ops/txs.html" class="site-link">TXS</a>.</p>
 			<p>Wskaźnik stosu jest w wielu dokumetacjach oznaczony symbolem SP.</p>
 		</div>
 		<div id="alu" class="section">
@@ -200,7 +201,7 @@
 			<div class="v6502-image">
 				<img src="img/address-bus.png" alt=""/>
 			</div>
-			<p><strong>Szyna adresowa</strong> - połączenie (magistrala), na którym są przemieszczane dane, które w danej chwili pełnią rolę adresów. Za jej pomocą procesor odwołuje się do poszczególnych komórek pamięci.</p>
+			<p><strong>Szyna adresowa</strong> - połączenie (magistrala), na którym są przemieszczane dane, które w danej chwili pełnią rolę adresów. Za pomocą magistrali procesor odwołuje się do poszczególnych komórek pamięci.</p>
 			<p>W procesorze 6502 ma szerokość szesnastu bitów.</p>
 			<div style="clear:both"></div>
 		</div>

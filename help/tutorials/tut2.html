@@ -37,7 +37,7 @@
 			<div class="left">
 				<img src="img/tut2/step2.png" alt="step2"/>
 			</div>
-			<p><strong>2.</strong> Wstaw do pola kodu kod pokazany na obrazku, naciśnij kolejno przyciski: "Załaduj" i dwa razy "Krok".</p>
+			<p><strong>2.</strong> Wstaw do pola kodu kod pokazany na obrazku, naciśnij kolejno przyciski: "Załaduj" i dwa razy "Krok". Dobrze też przełączyć na kartę śledzenie.</p>
 			<p>Asembler 6502 nie ma instrukcji alokujących tablice, dlatego ta operacja musi zostać zrealizowana w sześciu linijkach kodu.</p>
 			<p><button id="copy-clipboard-1" class="copy-clipboard"><i class="icon-clipboard"></i>Skopiuj kod</button></p>
 			<div style="clear: both;"></div>
@@ -47,7 +47,7 @@
 				<img src="img/tut2/step3.png" alt="step3"/>
 			</div>
 			<p><strong>3.</strong> Do rejestru X została wczytana wartość $00. Rozkaz LDX #$00 oznacza więc "przypisz argument do rejestru X".</p>
-			<p>Naciskaj przycisk "Krok", dopóki szare pole nie będzie wyświetlać rozkazu: "TXA", a numer cyklu nie będzie drugi.</p>
+			<p>Naciskaj przycisk "Krok", dopóki rozkaz "loop: TXA" nie zostanie wyróżniony na ciemnoczerwono w podglądzie śledzenia kodu, a numer cyklu nie będzie drugi.</p>
 			<div style="clear: both;"></div>
 		</div>
 		<div class="section">
@@ -55,7 +55,7 @@
 				<img src="img/tut2/step4.png" alt="step4"/>
 			</div>
 			<p><strong>4.</strong> Akumulator przyjął wartość taką samą, jak rejestr X. To oznacza, że rozkaz <a href="../ops/txa.html" class="site-link">TXA</a> wykonuje rozkaz "skopiuj wartość z rejestru X do akumulatora". Ponieważ zasób docelowy jest z góry określony, ten rozkaz nie miał argumentu. Znaczenie słowa "loop" wyjaśnimy później.</p>
-			<p>Naciskaj przycisk "Krok", dopóki szare pole nie będzie wyświetlać rozkazu: "STA $50,X", a numer cyklu nie będzie czwarty.</p>
+			<p>Naciskaj przycisk "Krok", dopóki rozkaz: "STA $50,X" nie zostanie wyróżniony na ciemnoczerwono, a numer cyklu nie będzie czwarty.</p>
 			<div style="clear: both;"></div>
 		</div>
 		<div class="section">
@@ -63,7 +63,7 @@
 				<img src="img/tut2/step5.png" alt="step5"/>
 			</div>
 			<p><strong>5.</strong> Wartość komórki $0050 przyjęła wartość $00. Zapis "$50, X" oznacza: "Dodaj do adresu $0050 wartość z rejestru X, a następnie zapisz wartość pod adresem wyjściowym". Rejestr X miał wartość $00, dlatego adresem wyjściowym, lub efektywnym jest $0050.</p>
-			<p>Naciskaj przycisk "Krok", dopóki szare pole nie będzie wyświetlać rozkazu: "INX", a numer cyklu nie będzie drugi.</p>
+			<p>Naciskaj przycisk "Krok", dopóki rozkaz "INX" nie zostanie zaznaczony na karcie "śledzenie", a numer cyklu nie będzie drugi.</p>
 			<div style="clear: both;"></div>
 		</div>
 		<div class="section">
@@ -71,7 +71,7 @@
 				<img src="img/tut2/step6.png" alt="step6"/>
 			</div>
 			<p><strong>6.</strong> Rejestr X w tym cyklu zwiększył się o jeden. Rozkaz <a href="../ops/inx.html" class="site-link">INX</a> wykonuje bardzo prostą operację - inkrementację rejestru X.</p>
-			<p>Naciskaj przycisk "Krok", dopóki szare pole nie będzie wyświetlać rozkazu: "CPX #$03", a numer cyklu nie będzie drugi.</p>
+			<p>Naciskaj przycisk "Krok", dopóki rozkaz "CPX #$03" nie zostanie zaznaczony na ciemnoczerwono, a numer cyklu nie będzie drugi.</p>
 			<div style="clear: both;"></div>
 		</div>
 		<div class="section">
@@ -79,14 +79,14 @@
 				<img src="img/tut2/step7.png" alt="step7"/>
 			</div>
 			<p><strong>7.</strong> Rozkaz <a href="../ops/inx.html" class="site-link">CPX</a> zmienił spośród zasobów dostępnych dla programisty jedynie trzy flagi: N, Z i C. Przyjęły one odpowiednio wartości: 1, 0 i 0. To oznacza, że liczba w rejestrze X była mniejsza, niż argument.</p>
-			<p>Naciskaj przycisk "Krok", dopóki szare pole nie będzie wyświetlać rozkazu: "BNE $F8", a numer cyklu nie będzie drugi.</p>
+			<p>Naciskaj przycisk "Krok", dopóki rozkaz "BNE loop" nie zostanie wyróżniony na ciemnoczerwono, a numer cyklu nie będzie drugi.</p>
 			<div style="clear: both;"></div>
 		</div>
 		<div class="section">
 			<div>
 				<img src="img/tut2/step8.png" alt="step8"/>
 			</div>
-			<p><strong>8.</strong> Rozkaz CPX nie odpowiada za skok do innej części programu. Obliczyła jedynie warunek. Skok powinna zrobić instrukcja "BNE $F8". W tym cyklu został pobrany argument $F8, który tym razem pełni rolę przesunięcia, gdyż instrukcja <a href="../ops/bne.html" class="site-link">BNE</a> obsługuje wyłącznie adresowanie względne.</p>
+			<p><strong>8.</strong> Rozkaz CPX nie odpowiada za skok do innej części programu. Obliczyła jedynie warunek. Skok powinna zrobić instrukcja "BNE loop". W tym cyklu został pobrany argument $F8, który tym razem pełni rolę przesunięcia, gdyż instrukcja <a href="../ops/bne.html" class="site-link">BNE</a> obsługuje wyłącznie adresowanie względne.</p>
 			<p>Naciśnij przycisk "Krok".</p>
 			<div style="clear: both;"></div>
 		</div>
@@ -102,8 +102,8 @@
 			<div class="left">
 				<img src="img/tut2/step10.png" alt="step10"/>
 			</div>
-			<p><strong>10.</strong> Zgodnie z oznaczeniem etykietą, po rozgałęzieniu program znalazł się na instrukcji "TXA". BNE wykonało rozgałęzienie, ponieważ ostatnio porównane liczby nie były równe.</p>
-			<p>Naciskaj przycisk "Krok", dopóki szare pole nie będzie wyświetlać rozkazu: "STA $50,X", a numer cyklu nie będzie czwarty.</p>
+			<p><strong>10.</strong> Zgodnie z oznaczeniem etykietą, po rozgałęzieniu program znalazł się na instrukcji "loop: TXA". BNE wykonało rozgałęzienie, ponieważ ostatnio porównane liczby nie były równe.</p>
+			<p>Naciskaj przycisk "Krok", dopóki rozkaz "STA $50,X" nie został wyróżniony na ciemnoczerwono, a numer cyklu nie będzie czwarty.</p>
 			<div style="clear: both;"></div>
 		</div>
 		<div class="section">
@@ -111,7 +111,7 @@
 				<img src="img/tut2/step11.png" alt="step11"/>
 			</div>
 			<p><strong>11.</strong> Tym razem zmieniła się komórka $0051, ponieważ rejestr X ma wartość jeden, a $0050 + 1 = $0051.</p>
-			<p>Naciskaj przycisk "Krok", dopóki szare pole nie będzie wyświetlać rozkazu: "CPX #$03", a numer cyklu nie będzie drugi. Rejestr X ma mieć wartość $03.</p>
+			<p>Naciskaj przycisk "Krok", dopóki w podglądzie "śledzenie" nie zostanie zaznaczony rozkaz "CPX #$03", a numer cyklu nie będzie drugi. Rejestr X ma mieć wartość $03.</p>
 			<div style="clear: both;"></div>
 		</div>
 		<div class="section">
@@ -119,15 +119,15 @@
 				<img src="img/tut2/step12.png" alt="step12"/>
 			</div>
 			<p><strong>12.</strong> Tym razem wartości flag N, Z i C po wykonaniu rozkazu CPX są inne. Mają odpowiednio wartość 0, 1 i 1. Stało się tak dlatego, że rejestr X i argument są już równe. Ciekawe, jak się zachowa program po wykonaniu instrukcji BNE...</p>
-			<p>Naciskaj przycisk "Krok", dopóki szare pole nie będzie wyświetlać rozkazu: "BNE $F8", a numer cyklu nie będzie trzeci.</p>
+			<p>Naciskaj przycisk "Krok", dopóki na ciemnoczerwono nie wyróżniono rozkazu "BNE loop", a numer cyklu nie będzie trzeci.</p>
 			<div style="clear: both;"></div>
 		</div>
 		<div class="section">
 			<div>
 				<img src="img/tut2/step13.png" alt="step13"/>
 			</div>
-			<p><strong>13.</strong> Co się dzieje? Dlaczego mamy instrukcję BIT $DF28? Dlatego, że warunek rozgałęzienia się nie spełnił i nie wykonał się trzeci cykl, w którym jest zmieniany licznik programu. A dlaczego akurat rozkaz <a href="../ops/bit.html" class="site-link">BIT</a>, a nie np. LDA? Dlatego, że w pamięci komórka po BNE loop zawiera wartość $2C, a ten opkod oznacza wykonanie rozkazu BIT w trybie bezwzględnym.</p>
-			<p>Uwaga! U ciebie może się pojawić inna operacja, ponieważ wartości w pamięci są generowane losowo.</p>
+			<p><strong>13.</strong> Co się dzieje? Dlaczego mamy instrukcję podpisaną w szarym polu jako "[NIEZNANY OPKOD]? Dlatego, że warunek rozgałęzienia się nie spełnił i nie wykonał się trzeci cykl, w którym jest zmieniany licznik programu. A dlaczego akurat nieznany rozkaz? Dlatego, że w pamięci komórka po BNE loop zawiera wartość $73, a do tej liczby nie przyporządkowano żadnej operacji. Rzeczywisty procesor 6502 wykonałby bliżej nieokreślone działania, ale nie są one udokumentowane, dlatego w Wizjerze 6502 program będzie się wykonywać w nieskończoność, nie wprowadzając jakichkolwiek zmian i jedynym sposobem na przerwanie programu jest wciśnięcie przycisku "Reset".</p>
+			<p><span style="font-weight: bold;">Uwaga!</span> U ciebie może zamiast nieznanego opkodu trafić się ten znany, ponieważ wartości w pamięci są generowane losowo.</p>
 			<div style="clear: both;"></div>
 		</div>
 		<div class="section">
@@ -148,7 +148,7 @@
 		<div id="help-footer">
 			<a href="../instructions.html">Powrót &lt;&lt;</a>
 		</div>
-		<div class="copyright-note">2018 Paweł Oziomek &copy; Wszelkie prawa zastrzeżone</div>
+		<div class="copyright-note">2022 Paweł Oziomek &copy; Wszelkie prawa zastrzeżone</div>
 	</footer>
 	<script>
 		document.getElementById('copy-clipboard-1').addEventListener('click', () =>
